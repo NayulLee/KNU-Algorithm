@@ -3,16 +3,23 @@ package combinationExample1;
 import java.util.Arrays;
 
 public class CombineExam01 {
-
-	static void combine(Animal[] animals, int start, int depth, Animal[] temp, int r) {
+	
+	static int maxPreference = 0;
+	
+	static void combine(Animal[] animals, int start, int depth, Animal[] temp,int weightSum, int preferenceSum, int r) {
         if (depth == r) {
-            System.out.println(Arrays.toString(temp));
-            return;
+            // 무게가 7을 넘으면 해당 조합은 탐색하지 않는다.
+        	if(weightSum <= 7) {
+        		// 무게가 7 이하일 때 선호도 합을 계산하고 최대 선호도 갱신
+        		maxPreference = Math.max(maxPreference, preferenceSum);
+        		System.out.println(Arrays.toString(temp) + " -> 선호도 합 : " + preferenceSum);
+        	}
+        	return;
         }
 
         for (int i = start; i < animals.length; i++) {
             temp[depth] = animals[i];
-            combine(animals, i + 1, depth + 1, temp, r);
+            combine(animals, i + 1, depth + 1, temp, weightSum + animals[i].weight, preferenceSum + animals[i].preference, r);
         }
 	}
 	public static void main(String[] args) {
@@ -28,13 +35,11 @@ public class CombineExam01 {
 	        };
 
 	        // 고를 동물의 수 (조합의 크기)
-	        int r = 3;
-
-	        // 조합을 담을 임시 배열
-	        Animal[] temp = new Animal[r];
-
-	        // 조합을 구하는 함수 호출 (0부터 시작, depth는 0, r은 3)
-	        combine(animals, 0, 0, temp, r);
+	        for(int r = 1; r < animals.length; r++) {
+	        	Animal[] temp = new Animal[r];
+	        	
+	        	combine(animals, 0, 0, temp, 0, 0, r);
+	        }
 	    }
 	}
 
