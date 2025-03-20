@@ -5,7 +5,7 @@ import java.util.Arrays;
 /* 1마리부터 7마리까지 모든 가능한 조합 출력
  * 조합은 중복 없이, 순서는 사전 순 정렬
  * 각 조합은 출력 전에 사전 순 정렬*/
-public class CombineExample_1 {
+public class CombineExampleStep1 {
 
 	static String[] animals = {"사자", "호랑이", "코끼리", "기린", "늑대", "여우", "곰"};
 
